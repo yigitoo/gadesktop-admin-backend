@@ -36,8 +36,8 @@ class Database {
 
 
 dotenv.config();
-const PORT = 443;
-const db_url = process.env.DB_URI ?? "mongodb://localhost:27017/";
+const PORT = process.env.EXPRESS_PORT || 3000;
+const db_url = process.env.DB_URI || "mongodb://localhost:27017/";
 
 const db_name = "galbul";
 const user_collection_name = "users";
@@ -123,7 +123,13 @@ app.post('/complaint_case', async (req, res) => {
   return res.status(200).json({
     status: 200,
     data: {
-}
+      comp_username: comp_user.username,
+      complainant_username: complainant.username,
+      complaint_user_id: comp_user._id,
+      complainant_user_id: complainant._id, 
+      title: complaint_case.title,
+      content: complainant_case.content, 
+    }
   })
 })
 
