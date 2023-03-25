@@ -5,7 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 
 dotenv.config();
-const PORT = process.env.EXPRESS_PORT;
+const PORT = 443;
 const db_url = process.env.DB_URI ?? "mongodb://localhost:27017/";
 
 const db_name = "galbul";
