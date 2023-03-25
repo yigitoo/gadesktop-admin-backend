@@ -167,7 +167,7 @@ app.post('/login', async function (req, res) {
   }
 });
 
-app.user((req, res) => {
+app.use((req, res) => {
   res.status(404).send('Sayfa Bulunamadi!')
 })
 
