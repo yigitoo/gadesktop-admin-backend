@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
-    "server": "node api.js"
+    "server": "node index.js"
   },
   "keywords": [],
   "author": "yigitoo",
