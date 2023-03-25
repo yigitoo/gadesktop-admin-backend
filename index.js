@@ -119,10 +119,6 @@ app.post('/complaint_case', async (req, res) => {
     complainant = await user_client.run({_id: complaint_case.complainant}, 'find_one')
   }
 
-  for(const x of result)
-  {
-    console.log(x)
-  }
   return res.status(200).json({
     status: 200,
     data: {
