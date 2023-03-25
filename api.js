@@ -26,6 +26,17 @@ const admin_client = new Database(db_url, db_name, admin_collection)
 const app = express();
 app.use(cors())
 app.use(bodyParser.json());
+function cannot_get(req, res){
+  res.status(200).json({
+    status:200,
+    message: "THIS PAGE ACCEPT ONLY 'POST' COMMAND."
+  })
+}
+app.get('/', cannot_get)
+app.get('/complaints', cannot_get)
+app.get('/login', cannot_get)
+app.get('/complaint_case', cannot_get)
+
 
 app.post('/complaints', async function(req ,res) {
   const { email, secretKey } = req.body;
