@@ -1,11 +1,12 @@
+import 'dotenv/config'
 class UnitTest {
     constructor()
     {
-        const t_make_login = this.make_login();
-        const t_get_comp = this.get_comp();
-        const t_get_case = this.get_case();
+        this.SECRET_KEY = process.env.SECRET_KEY;
 
-        this.assert([
+        const [t_make_login, t_get_comp, t_get_case] = this.run_tests(this.make_login, this.get_comp, this.get_case);
+                
+        const is_all_test_passed = this.assert([
             {
                 name: "Make_Login",
                 isPassed: t_make_login
@@ -18,7 +19,17 @@ class UnitTest {
                 name: "Get_Complaint_Case",
                 isPassed: t_get_case
             }
-        ])
+        ]) ? "All test are passed!" : "All test are NOT passed!"
+    }
+    async run_tests(...funtion_list)
+    {
+        const check_list = [];
+        let temp;
+        for(const _function of function_list){
+            temp = await _function();
+            check_list.push(temp);
+        }
+        return check_list;
     }
     assert(...tests)
     {
@@ -27,8 +38,9 @@ class UnitTest {
             if(test.isPassed)
                 console.log(`Test passed for ${test.name} ✅`)
             else
-                console.log(`Test durmak at ${test.name} ❌!`)
+                console.log(`Test halt at ${test.name} ❌!`)
         }
+        return true;
     }
     async make_login()
     {
@@ -36,7 +48,7 @@ class UnitTest {
             method:"POST",
             body: JSON.stringify({
                 email: "rawns0909@gmail.com",
-                secretKey: SECRET_KEY
+                secretKey: this.SECRET_KEY
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -50,11 +62,11 @@ class UnitTest {
     }
     async get_comp()
     {
-        const data = await fetch('https://gadesktop-admin-backend.vercel.app/', {
+        const data = await fetch('https://gadesktop-admin-backend.vercel.app/complaints', {
             method:"POST",
             body: JSON.stringify({
                 email: "rawns0909@gmail.com",
-                secretKey: SECRET_KEY
+                secretKey: this.SECRET_KEY
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -83,5 +95,4 @@ class UnitTest {
     }
 }
 
-
-make_req()
+const unittest = new UnitTest();

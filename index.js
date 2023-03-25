@@ -107,7 +107,6 @@ app.post('/complaints', async function(req ,res) {
 });
 
 app.post('/complaint_case', async (req, res) => {
-  const comp_img_path = process.env.COMPLAINTS_IMG_PATH;
   const { comp_id } = req.body;
 
   const complaint_case = await complaints_client.run({_id: comp_id}, 'find_one') ?? false;
@@ -167,5 +166,9 @@ app.post('/login', async function (req, res) {
     })
   }
 });
+
+app.user((req, res) => {
+  res.status(404).send('Sayfa Bulunamadi!')
+})
 
 app.listen(PORT, () => console.log(`[SERVER] AT http://localhost:${PORT}/`))
