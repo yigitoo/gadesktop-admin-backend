@@ -4,6 +4,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import * as mongodb from 'mongodb'
 const { MongoClient } = mongodb;
+dotenv.config();
+
 class Database {
   constructor(connection_url, db_name, collection_name){
     this.connection_url = connection_url;
@@ -34,8 +36,6 @@ class Database {
 
 }
 
-
-dotenv.config();
 const PORT = process.env.EXPRESS_PORT || 3000;
 const db_url = process.env.DB_URI || "mongodb://localhost:27017/";
 
