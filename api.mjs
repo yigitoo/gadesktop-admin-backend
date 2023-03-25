@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { Database } from '../gadesktop-admin/src/database.mjs'
-import { is_logged } from '../gadesktop-admin/src/stores.mjs'
+import { Database } from './database.mjs'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
@@ -27,15 +26,6 @@ const admin_client = new Database(db_url, db_name, admin_collection)
 const app = express();
 app.use(cors())
 app.use(bodyParser.json());
-
-app.get('/logout', function (req, res) {
-  is_logged.set(false)
-
-  res.status(200).json({
-    message: "LOGOUT_SUCCESS",
-    response: 200
-  })
-})
 
 app.post('/complaints', async function(req ,res) {
   const { email, secretKey } = req.body;
