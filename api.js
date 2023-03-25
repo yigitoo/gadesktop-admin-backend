@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { Database } from './database.mjs'
+import { Database } from './database.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 

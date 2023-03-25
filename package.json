@@ -5,7 +5,7 @@
   "type": "module",
   "main": "api.js",
   "scripts": {
-    "start": "node api.mjs"
+    "server": "node api.js"
   },
   "keywords": [],
   "author": "yigitoo",
