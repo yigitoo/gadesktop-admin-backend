@@ -108,8 +108,8 @@ app.post('/complaints', async function(req ,res) {
 
 app.post('/complaint_case', async (req, res) => {
   const { comp_id } = req.body;
-
   const complaint_case = await complaints_client.run({_id: comp_id}, 'find_one') ?? false;
+
   let comp_user;
   let complainant;
   
@@ -119,6 +119,10 @@ app.post('/complaint_case', async (req, res) => {
     complainant = await user_client.run({_id: complaint_case.complainant}, 'find_one')
   }
 
+  for(const x of result)
+  {
+    console.log(x)
+  }
   return res.status(200).json({
     status: 200,
     data: {
@@ -127,7 +131,7 @@ app.post('/complaint_case', async (req, res) => {
       complaint_user_id: comp_user._id,
       complainant_user_id: complainant._id, 
       title: complaint_case.title,
-      content: complainant_case.content, 
+      content: complaint_case.content, 
     }
   })
 })
