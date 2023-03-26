@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import * as mongodb from 'mongodb'
 const { MongoClient } = mongodb;
 dotenv.config();
+const isDev = proces.env.IS_DEV === 0 ? false : true;
 
 class Database {
   constructor(connection_url, db_name, collection_name){
@@ -57,16 +58,16 @@ const admin_client = new Database(db_url, db_name, admin_collection)
 const app = express();
 app.use(cors())
 app.use(bodyParser.json());
-function cannot_get(req, res){
+function get_req_warn(req, res){
   res.status(200).json({
     status:200,
     message: "THIS PAGE ACCEPT ONLY 'POST' COMMAND."
   })
 }
-app.get('/', cannot_get)
-app.get('/complaints', cannot_get)
-app.get('/login', cannot_get)
-app.get('/complaint_case', cannot_get)
+app.get('/', get_req_warn)
+app.get('/complaints', get_req_warn)
+app.get('/login', get_req_warn)
+app.get('/complaint_case', get_req_warn)
 
 
 app.post('/complaints', async function(req ,res) {
@@ -127,7 +128,8 @@ app.post('/complaint_case', async (req, res) => {
       complaint_user_id: comp_user._id,
       complainant_user_id: complainant._id, 
       title: complaint_case.title,
-      content: complaint_case.content, 
+      content: complaint_case.content,
+      comp_id: comp_id
     }
   })
 })
@@ -171,4 +173,4 @@ app.use((req, res) => {
   res.status(404).send('Sayfa Bulunamadi!')
 })
 
-app.listen(PORT, () => console.log(`[SERVER] AT http://localhost:${PORT}/`))
+app.listen(PORT, () => console.log(`[SERVER] AT http://${isDev ? "localhost" : process.env.REMOTE_SERVER}:${PORT}/`))
