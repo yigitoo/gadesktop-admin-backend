@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import * as mongodb from 'mongodb'
 const { MongoClient } = mongodb;
 dotenv.config();
-const isDev = proces.env.IS_DEV === 0 ? false : true;
+const isDev = process.env.IS_DEV === 0 ? false : true;
 
 class Database {
   constructor(connection_url, db_name, collection_name){
